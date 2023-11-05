@@ -177,7 +177,7 @@ class BiliUser:
                 for index, medal in enumerate(failedMedals):
                     tasks = []
                     tasks.append(
-                        self.api.likeInteractV3(medal['room_info']['room_id'], medal['medal']['target_id'])
+                        self.api.likeInteractV3(medal['room_info']['room_id'], medal['medal']['target_id'],self.mid)
                     ) if self.config['LIKE_CD'] else ...
                     await asyncio.gather(*tasks)
                     self.log.log(
@@ -190,7 +190,7 @@ class BiliUser:
                 allTasks = []
                 for medal in failedMedals:
                     allTasks.append(
-                        self.api.likeInteractV3(medal['room_info']['room_id'], medal['medal']['target_id'])
+                        self.api.likeInteractV3(medal['room_info']['room_id'], medal['medal']['target_id'],self.mid)
                     ) if self.config['LIKE_CD'] else ...
                 await asyncio.gather(*allTasks)
             await asyncio.sleep(10)
@@ -261,7 +261,6 @@ class BiliUser:
             tasks.append(self.sendDanmaku())
             tasks.append(self.signInGroups())
             await asyncio.gather(*tasks)
-        # await self.session.close()
 
     async def sendmsg(self):
         if not self.isLogin:
